@@ -1,0 +1,83 @@
+<div class="card">
+    <div class="card-header bg-dark text-light">Level 1</div>
+    <div class="card-body">
+        <p>Using the SportsORM, complete all the following queries and show their results on Level1.cshtml.</p>
+        <ol>
+            <li>...all womens' leagues</li>
+            @foreach(League L in ViewBag.WomensLeagues)
+            {
+                <h6>@L.Name</h6>
+            }
+            <li>...all leagues where sport is any type of hockey</li>
+            @foreach(League H in ViewBag.Hockey)
+            {
+                <h6>@H.Name</h6>
+            }
+            <li>...all leagues where sport is something OTHER THAN football</li>
+            @foreach(League Nf in ViewBag.NoFoot)
+            {
+                <h6>@Nf.Name</h6>
+            }
+            <li>...all leagues that call themselves "conferences"</li>
+            @foreach(League C in ViewBag.Conference)
+            {
+                <h6>@C.Name</h6>
+            }
+            <li>...all leagues in the Atlantic region</li>
+            @foreach(League A in ViewBag.Atlantic)
+            {
+                <h6>@A.Name</h6>
+            }
+            <li>...all teams based in Dallas</li>
+            @foreach(Team D in ViewBag.Dallas)
+            {
+                <h6>@D.Location @D.TeamName</h6>
+            }
+            <li>...all teams named the Raptors</li>
+            @foreach(Team R in ViewBag.Raptors)
+            {
+                <h6>@R.Location @R.TeamName</h6>
+            }
+            <li>...all teams whose location includes "City"</li>
+            @foreach(Team C in ViewBag.City)
+            {
+                <h6>@C.Location @C.TeamName</h6>
+            }
+            <li>...all teams whose names begin with "T"</li>
+            @foreach(Team T in ViewBag.TTitle)
+            {
+                <h6>@T.Location @T.TeamName</h6>
+            }
+            <li>...all teams, ordered alphabetically by location</li>
+            @foreach(Team All in ViewBag.Abc)
+            {
+                <h6>@All.Location @All.TeamName</h6>
+            }
+            <li>...all teams, ordered by team name in reverse alphabetical order</li>
+            @foreach(Team cba in ViewBag.Cba)
+            {
+                <h6>@cba.Location @cba.TeamName</h6>
+            }
+            <li>...every player with last name "Cooper"</li>
+            @foreach(Player c in ViewBag.Cooper)
+            {
+                <h6>@c.FirstName @c.LastName</h6>
+            }
+            <li>...every player with first name "Joshua"</li>
+            @foreach(Player j in ViewBag.Joshua)
+            {
+                <h6>@j.FirstName @j.LastName</h6>
+            }
+            <li>...every player with last name "Cooper" EXCEPT those with "Joshua" as the first name</li>
+            @foreach(Player cnoj in ViewBag.CooperNoJ)
+            {
+                <h6>@cnoj.FirstName @cnoj.LastName</h6>
+            }
+            <li>...all players with first name "Alexander" OR first name "Wyatt"</li>
+            @foreach(Player aw in ViewBag.AW)
+            {
+                <h6>@aw.FirstName @aw.LastName</h6>
+            }
+        </ol>
+    </div>
+</div>
