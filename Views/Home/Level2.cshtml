@@ -4,13 +4,61 @@
         <p>Using the SportsORM, complete all the following queries and show their results on Level2.cshtml.</p>
         <ol>
             <li>...all teams in the Atlantic Soccer Conference</li>
+            @{
+                foreach(Team team in ViewBag.AtlanticSoccer)
+                {
+                    <p>@team.TeamName, @team.CurrLeague.Name</p> 
+                }
+            }
             <li>...all (current) players on the Boston Penguins (Hint: Boston is the Location, Penguins is the TeamName)</li>
+            @{
+                foreach(Player player in ViewBag.BoPenPlayers)
+                {
+                    <p>@player.FirstName @player.LastName</p> 
+                }
+            }
             <li>...all (current) players in the International Collegiate Baseball Conference</li>
+            @{
+                foreach(Player player in ViewBag.ICBC)
+                {
+                    <p>@player.FirstName @player.LastName</p> 
+                }
+            }
             <li>...all (current) players in the American Conference of Amateur Football with last name "Lopez"</li>
+            @{
+                foreach(Player player in ViewBag.Lop)
+                {
+                    <p>@player.FirstName @player.LastName</p> 
+                }
+            }
             <li>...all football players</li>
+            @{
+                foreach(Player player in ViewBag.foot)
+                {
+                    <p>@player.FirstName @player.LastName</p> 
+                }
+            }
             <li>...all teams with a (current) player named "Sophia"</li>
+            @{
+                foreach(Team Team in ViewBag.soph)
+                {
+                    <p>@Team.Location @Team.TeamName</p> 
+                }
+            }
             <li>...all leagues with a (current) player named "Sophia"</li>
+            @{
+                foreach(League league in ViewBag.SophiaL)
+                {
+                    <p>@league.Name @league.Sport</p> 
+                }
+            }
             <li>...everyone with the last name "Flores" who DOESN'T (currently) play for the Washington Roughriders</li>
+            @{
+                foreach(Player player in ViewBag.Flores)
+                {
+                    <p>@player.FirstName @player.LastName</p> 
+                }
+            }
         </ol>
     </div>
 </div>

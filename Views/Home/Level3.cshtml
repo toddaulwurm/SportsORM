@@ -4,7 +4,23 @@
         <p>Using the SportsORM, complete all the following queries and show their results on Level3.cshtml.</p>
         <ol>
             <li>...all teams, past and present, that Samuel Evans has played with</li>
+                <p>Current team: @ViewBag.Sam.CurrentTeam.Location @ViewBag.Sam.CurrentTeam.TeamName</p>
+                <p>Past Teams:</p>
+                <ul>
+                    @{
+                        foreach(PlayerTeam pt in ViewBag.Sam.AllTeams)
+                        {
+                            <li>@pt.TeamOfPlayer.Location @pt.TeamOfPlayer.TeamName</li>
+                        }
+                    }
+                </ul>
             <li>...all players, past and present, with the Manitoba Tiger-Cats</li>
+                @{
+                    foreach(Player player in ViewBag.Manitoba.PlayerOnTeam)
+                    {
+                        <li>@player.FirstName @player.LastName</li>
+                    }
+                }
             <li>...all players who were formerly (but aren't currently) with the Wichita Vikings</li>
             <li>...every team that Jacob Gray played for before he joined the Oregon Colts</li>
             <li>...everyone named "Joshua" who has ever played in the Atlantic Federation of Amateur Baseball Players</li>

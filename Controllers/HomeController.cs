@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SportsORM.Models;
 
 
@@ -86,12 +87,62 @@ namespace SportsORM.Controllers
         [HttpGet("level_2")]
         public IActionResult Level2()
         {
+            ViewBag.AtlanticSoccer = _context.Teams
+                .Include(team => team.CurrLeague)
+                .Where(atl => atl.CurrLeague.Name.Contains("Atlantic Soccer Conference"))
+                .ToList();
+            ViewBag.BoPenPlayers = _context.Players
+                .Include(team => team.CurrentTeam)
+                .Where(bopen => bopen.CurrentTeam.Location.Contains("Boston") && bopen.CurrentTeam.TeamName.Contains("Penguins"))
+                .ToList();
+            ViewBag.ICBC = _context.Players
+                .Include(team => team.CurrentTeam)
+                .ThenInclude(lea => lea.CurrLeague)
+                .Where(fin => fin.CurrentTeam.CurrLeague.Name.Contains("International Collegiate Baseball Conference"))
+                .ToList();
+            ViewBag.Lop = _context.Players
+                .Include(team => team.CurrentTeam)
+                .ThenInclude(lea => lea.CurrLeague)
+                .Where(fin => fin.CurrentTeam.CurrLeague.Name.Contains("American Conference") && fin.LastName.Contains("Lopez"))
+                .ToList();
+            ViewBag.foot = _context.Players
+                .Include(team => team.CurrentTeam)
+                .ThenInclude(lea => lea.CurrLeague)
+                .Where(fin => fin.CurrentTeam.CurrLeague.Sport.Contains("Football"))
+                .ToList();
+            ViewBag.soph = _context.Teams
+                .Include(team => team.CurrentPlayers)
+                .Where(team => team.CurrentPlayers.Any(play => play.FirstName == "Sophia"))
+                .ToList();
+            ViewBag.SophiaL= _context.Leagues
+                .Include(leag => leag.Teams)
+                .ThenInclude(tea => tea.CurrentPlayers)
+                .Where(lea => lea.Teams.Any(tea => tea.CurrentPlayers.Any(play => play.FirstName == "Sophia")))
+                .ToList();
+            ViewBag.Flores = _context.Players
+                .Include(team => team.CurrentTeam)
+                .Where(bopen => !bopen.CurrentTeam.Location.Contains("Washington") && !bopen.CurrentTeam.TeamName.Contains("Roughriders") && bopen.LastName.Contains("Flores"))
+                .ToList();
+            
+
             return View();
         }
 
         [HttpGet("level_3")]
         public IActionResult Level3()
         {
+            ViewBag.Sam = _context.Players
+                .Include(play => play.CurrentTeam)
+                .Include(player => player.AllTeams)
+                .ThenInclude(pt => pt.TeamOfPlayer)
+                .FirstOrDefault(play => play.FirstName == "Samuel" && play.LastName == "Evans");
+            ViewBag.Manitoba = _context.Teams
+                .Include(team => team.AllPlayers)
+                .ThenInclude(p => p.PlayerOnTeam)
+                .Where(team => team.Location.Contains("Manitoba"))
+                .ToList();
+
+
             return View();
         }
 
