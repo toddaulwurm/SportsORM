@@ -137,10 +137,40 @@ namespace SportsORM.Controllers
                 .ThenInclude(pt => pt.TeamOfPlayer)
                 .FirstOrDefault(play => play.FirstName == "Samuel" && play.LastName == "Evans");
             ViewBag.Manitoba = _context.Teams
+                .Include(team => team.CurrentPlayers)
                 .Include(team => team.AllPlayers)
-                .ThenInclude(p => p.PlayerOnTeam)
-                .Where(team => team.Location.Contains("Manitoba"))
+                .ThenInclude(pt => pt.PlayerOnTeam)
+                .FirstOrDefault(team => team.Location == "Manitoba");
+            ViewBag.Vikings = _context.Teams
+                .Include(team => team.AllPlayers)
+                .ThenInclude(pt => pt.PlayerOnTeam)
+                .ThenInclude(player => player.CurrentTeam)
+                .FirstOrDefault(team => team.TeamName == "Vikings");
+            ViewBag.JGray = _context.Players
+                .Include(play => play.AllTeams)
+                .ThenInclude(at => at.TeamOfPlayer)
+                .FirstOrDefault(player => player.FirstName == "Jacob" && player.LastName == "Gray");
+
+            ViewBag.Joshua = _context.Players
+                .Include(play => play.CurrentTeam)
+                .ThenInclude(team => team.CurrLeague)
+                .Include(play => play.AllTeams)
+                .ThenInclude(pt => pt.TeamOfPlayer)
+                .ThenInclude(team => team.CurrLeague)
+                .Where(play => play.FirstName == "Joshua")
+                .Where(play => play.CurrentTeam.CurrLeague.Name == "Atlantic Federation of Amateur Baseball Players" || play.AllTeams.Any(pt => pt.TeamOfPlayer.CurrLeague.Name == "Atlantic Federation of Amateur Baseball Players"))
                 .ToList();
+            ViewBag.Twelve = _context.Teams
+                .Include(Team => Team.CurrentPlayers)
+                .Include(Team=> Team.AllPlayers)
+                .Where(team => team.CurrentPlayers.Count + team.AllPlayers.Count >=12)
+                .ToList();
+            ViewBag.TeamNum = _context.Players
+                .Include(player => player.AllTeams)
+                .OrderByDescending(player => player.AllTeams.Count+1)
+                .ToList();
+            
+
 
 
             return View();

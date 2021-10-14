@@ -16,16 +16,54 @@
                 </ul>
             <li>...all players, past and present, with the Manitoba Tiger-Cats</li>
                 @{
-                    foreach(Player player in ViewBag.Manitoba.PlayerOnTeam)
+                    foreach(PlayerTeam playerTeam in ViewBag.Manitoba.AllPlayers)
                     {
-                        <li>@player.FirstName @player.LastName</li>
+                        <p>@playerTeam.PlayerOnTeam.FirstName @playerTeam.PlayerOnTeam.LastName</p>
+                    }
+                    foreach(Player players in ViewBag.Manitoba.CurrentPlayers)
+                    {
+                        <p>@players.FirstName @players.LastName</p>
                     }
                 }
             <li>...all players who were formerly (but aren't currently) with the Wichita Vikings</li>
+                    @{
+                        foreach(PlayerTeam pt in ViewBag.Vikings.AllPlayers)
+                        {
+                            <p>@pt.PlayerOnTeam.FirstName @pt.PlayerOnTeam.LastName @pt.PlayerOnTeam.CurrentTeam.TeamName</p>
+                        }
+                    }
             <li>...every team that Jacob Gray played for before he joined the Oregon Colts</li>
+                @{
+                    foreach(PlayerTeam pt in ViewBag.JGray.AllTeams)
+                    {
+                        <p>@pt.TeamOfPlayer.Location @pt.TeamOfPlayer.TeamName</p>
+                    }
+                }
+
+
             <li>...everyone named "Joshua" who has ever played in the Atlantic Federation of Amateur Baseball Players</li>
+                @{
+                    foreach(Player player in ViewBag.Joshua)
+                    {
+                        <p>@player.FirstName @player.LastName </p>
+                    }
+                }
+
+
             <li>...all teams that have had 12 or more players, past and present.</li>
+                @{
+                    foreach(Team Team in ViewBag.Twelve)
+                    {
+                        <p>@Team.TeamName @Team.Location </p>
+                    }
+                }
             <li>...all players, sorted by the number of teams they've played for</li>
+                @{
+                    foreach(Player player in ViewBag.TeamNum)
+                    {
+                        <p>@player.FirstName @player.LastName @{int num = player.AllTeams.Count+1;} @num</p>
+                    }
+                }
         </ol>
     </div>
 </div>
